@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -9,6 +10,9 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+    }
+    plugins {
+        kotlin("jvm") version "2.4.20"
     }
 }
 plugins {
@@ -23,4 +27,13 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Content Explorer"
+
 include(":app")
+include(":core:common")
+include(":core:domain")
+include(":core:network")
+include(":core:database")
+include(":core:data")
+include(":core:designsystem")
+include(":feature:home")
+include(":feature:image-detail")
