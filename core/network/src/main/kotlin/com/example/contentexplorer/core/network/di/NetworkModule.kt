@@ -9,23 +9,25 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.core.annotation.Configuration
 import org.koin.core.annotation.Module
-import org.koin.core.annotation.Single
+import org.koin.core.annotation.Singleton
 
 @Module
+@Configuration
 class NetworkModule {
-    @Single
+    @Singleton
     fun provideJson(): Json = Json {
         ignoreUnknownKeys = true
         isLenient = true
     }
 
-    @Single
+    @Singleton
     fun provideHttpClient(json: Json): HttpClient = HttpClient(OkHttp) {
         install(ContentNegotiation) { json(json) }
         install(Logging) { level = LogLevel.INFO }
     }
 
-    @Single
-    fun provideContentApi(client: HttpClient): ContentApi = ContentApiImpl(client)
+    @Singleton
+    fun provideContentApi(client: HttpClient, json: Json): ContentApi = ContentApiImpl(client, json)
 }

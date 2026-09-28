@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class ResponseDto(
     val id: Long,
     val label: String,
-    val score: Int?,
+    val score: Int? = null,
 )

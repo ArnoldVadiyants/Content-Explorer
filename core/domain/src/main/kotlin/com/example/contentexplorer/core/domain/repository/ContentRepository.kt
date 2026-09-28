@@ -4,6 +4,9 @@ import com.example.contentexplorer.core.domain.model.ImageQuestion
 import com.example.contentexplorer.core.domain.model.Page
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Repository interface defining operations on content pages.
+ */
 interface ContentRepository {
     fun observePages(): Flow<List<Page>>
     suspend fun refresh(): Result<Unit>

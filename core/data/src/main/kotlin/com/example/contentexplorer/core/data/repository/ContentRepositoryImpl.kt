@@ -10,9 +10,12 @@ import com.example.contentexplorer.core.network.api.ContentApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest
-import org.koin.core.annotation.Single
+import org.koin.core.annotation.Singleton
 
-@Single(binds = [ContentRepository::class])
+/**
+ * Repository implementation coordinating local database storage and remote API syncing.
+ */
+@Singleton
 class ContentRepositoryImpl(
     private val contentApi: ContentApi,
     private val contentDao: ContentDao,
@@ -21,6 +24,7 @@ class ContentRepositoryImpl(
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun observePages(): Flow<List<Page>> =
         contentDao.observePages().mapLatest { pageEntities ->
+            // Reconstruct nested domain model for each stored page
             pageEntities.map { pageEntity ->
                 val items = contentDao.getItemsForPage(pageEntity.id)
                 val choiceItems = items.filter { it.type == "choice" }
@@ -37,6 +41,7 @@ class ContentRepositoryImpl(
     override suspend fun refresh(): Result<Unit> = runCatching {
         val pages = contentApi.fetchPages()
         val contentEntity = ContentDtoToEntityMapper.map(pages)
+        // Atomically overwrite local database cache with newly fetched pages
         contentDao.replaceAll(contentEntity.pages, contentEntity.items, contentEntity.responseSets, contentEntity.responses)
     }
 

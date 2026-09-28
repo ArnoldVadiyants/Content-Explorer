@@ -21,5 +21,5 @@ data class ResponseEntity(
     @PrimaryKey val id: Long,
     val responseSetId: Long,
     val label: String,
-    val score: Int?,
+    val score: Int? = null,
 )

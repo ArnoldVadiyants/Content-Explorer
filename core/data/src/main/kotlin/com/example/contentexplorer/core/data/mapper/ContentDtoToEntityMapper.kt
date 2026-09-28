@@ -11,6 +11,9 @@ import com.example.contentexplorer.core.network.dto.PageDto
 import com.example.contentexplorer.core.network.dto.SectionDto
 import com.example.contentexplorer.core.network.dto.TextDto
 
+/**
+ * Maps network DTO hierarchy into relational database entities.
+ */
 object ContentDtoToEntityMapper {
 
     data class ContentEntity(
@@ -20,6 +23,9 @@ object ContentDtoToEntityMapper {
         val responses: List<ResponseEntity>,
     )
 
+    /**
+     * Converts nested page DTOs into flat database entities.
+     */
     fun map(pages: List<PageDto>): ContentEntity {
         val pageEntities = mutableListOf<PageEntity>()
         val itemEntities = mutableListOf<ContentItemEntity>()
@@ -36,6 +42,7 @@ object ContentDtoToEntityMapper {
         return ContentEntity(pageEntities, itemEntities, responseSetEntities, responseEntities)
     }
 
+    // Recursively flattens nested sections, questions, and associated response sets into flat entities.
     private fun flattenItem(
         item: ContentItemDto,
         pageId: Long,
@@ -57,6 +64,7 @@ object ContentDtoToEntityMapper {
                         pageId = pageId,
                     ),
                 )
+                // Recursively flatten child items with section ID as parentId
                 item.items.forEach { child ->
                     flattenItem(child, pageId = pageId, parentId = item.id, items, responseSets, responses)
                 }
@@ -99,6 +107,7 @@ object ContentDtoToEntityMapper {
                         pageId = pageId,
                     ),
                 )
+                // Extract response set and choice options for relational persistence
                 responseSets.add(
                     ResponseSetEntity(
                         id = item.responseSet.id,
