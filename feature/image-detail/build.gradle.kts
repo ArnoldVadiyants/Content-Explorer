@@ -1,7 +1,27 @@
 plugins {
-    alias(libs.plugins.contentexplorer.android.library)
+    alias(libs.plugins.contentexplorer.android.feature)
+    alias(libs.plugins.koin.plugin)
 }
 
 android {
     namespace = "com.example.contentexplorer.feature.imagedetail"
+}
+
+dependencies {
+    implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.koin.core)
+    implementation(libs.koin.annotations)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
+
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.compose.material.icons.extended)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }

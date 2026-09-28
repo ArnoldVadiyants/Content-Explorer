@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="image_detail_title">Image Detail</string>
+    <string name="content_back">Back</string>
+    <string name="content_retry">Retry</string>
+    <string name="image_detail_error">Unable to load image. Please try again.</string>
+</resources>

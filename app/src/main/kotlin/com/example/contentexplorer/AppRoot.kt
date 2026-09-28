@@ -13,6 +13,9 @@ import com.example.contentexplorer.feature.home.presentation.HomeAction
 import com.example.contentexplorer.feature.home.presentation.HomeViewModel
 import com.example.contentexplorer.feature.home.ui.HomeRoute
 import com.example.contentexplorer.feature.home.ui.HomeTopBar
+import com.example.contentexplorer.feature.imagedetail.navigation.ImageDetail
+import com.example.contentexplorer.feature.imagedetail.ui.ImageDetailRoute
+import com.example.contentexplorer.feature.imagedetail.ui.ImageDetailTopBar
 import org.koin.compose.viewmodel.koinViewModel
 
 /**
@@ -31,6 +34,8 @@ fun AppRoot() {
                     val homeViewModel: HomeViewModel = koinViewModel()
                     HomeTopBar(onRefresh = { homeViewModel.onAction(HomeAction.Refresh) })
                 }
+
+                is ImageDetail -> ImageDetailTopBar(onBack = { backStack.removeLastOrNull() })
             }
         },
     ) { innerPadding ->
@@ -40,7 +45,13 @@ fun AppRoot() {
             modifier = Modifier.padding(innerPadding),
             entryProvider = entryProvider {
                 entry<Home> {
-                    HomeRoute(onOpenImage = { imageId -> { /*TODO*/ } })
+                    HomeRoute(onOpenImage = { imageId -> backStack.add(ImageDetail(imageId)) })
+                }
+                entry<ImageDetail> { destination ->
+                    ImageDetailRoute(
+                        imageId = destination.imageId,
+                        onBack = { backStack.removeLastOrNull() },
+                    )
                 }
             },
         )
