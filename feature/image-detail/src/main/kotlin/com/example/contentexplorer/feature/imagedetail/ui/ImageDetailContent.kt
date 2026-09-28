@@ -22,7 +22,7 @@ fun ImageDetailContent(
 ) {
     LazyColumn(modifier = modifier
         .fillMaxSize()
-        .testTag("image_detail_contet")) {
+        .testTag("image_detail_content")) {
         item(key = "image") {
             AsyncImage(
                 model = image.src,
@@ -38,7 +38,7 @@ fun ImageDetailContent(
                     .fillMaxWidth()
                     .padding(Spacing.lg),
                 text = image.title,
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground,
             )

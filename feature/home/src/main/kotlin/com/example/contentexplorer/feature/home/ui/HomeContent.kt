@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import com.example.contentexplorer.core.designsystem.theme.Spacing
 import com.example.contentexplorer.feature.home.presentation.HomeAction
 import com.example.contentexplorer.feature.home.presentation.HomeError
@@ -29,7 +30,9 @@ fun HomeContent(
     PullToRefreshBox(
         isRefreshing = state.isRefreshing,
         onRefresh = { onAction(HomeAction.Refresh) },
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .testTag("home_content"),
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
