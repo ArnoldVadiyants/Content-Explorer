@@ -13,6 +13,9 @@ import com.example.contentexplorer.core.domain.model.ResponseSet
 import com.example.contentexplorer.core.domain.model.Section
 import com.example.contentexplorer.core.domain.model.TextQuestion
 
+/**
+ * Maps database entities into domain models.
+ */
 object ContentEntityToDomainMapper {
 
     data class ResponseSetData(
@@ -21,12 +24,16 @@ object ContentEntityToDomainMapper {
         val responses: List<ResponseEntity>,
     )
 
+    /**
+     * Reconstructs a nested domain [Page] from flat database entities.
+     */
     fun mapPage(
         page: PageEntity,
         items: List<ContentItemEntity>,
         responseSets: List<ResponseSetData>,
     ): Page {
         val responseSetsByQuestionId = responseSets.associateBy { it.questionId }
+        // Filter top-level items (items without a parent section)
         val topLevelItems = items.filter { it.parentId == null }
         return Page(
             id = page.id,
@@ -35,6 +42,7 @@ object ContentEntityToDomainMapper {
         )
     }
 
+    // Recursively constructs section children and choice question models
     private fun mapItem(
         item: ContentItemEntity,
         allItems: List<ContentItemEntity>,

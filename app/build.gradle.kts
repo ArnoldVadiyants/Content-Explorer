@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.contentexplorer.android.application)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.koin.plugin)
 }
 
 android {

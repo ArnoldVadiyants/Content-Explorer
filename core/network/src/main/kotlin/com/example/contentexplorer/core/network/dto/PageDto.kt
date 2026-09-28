@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PageDto(
     val id: Long,
+    val type: String,
     val title: String,
     val items: List<ContentItemDto>,
 )

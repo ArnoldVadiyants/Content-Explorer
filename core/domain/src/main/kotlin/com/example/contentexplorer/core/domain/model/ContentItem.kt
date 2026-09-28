@@ -1,5 +1,8 @@
 package com.example.contentexplorer.core.domain.model
 
+/**
+ * Sealed hierarchy representing domain model content items (sections and questions).
+ */
 sealed interface ContentItem {
     val id: Long
 }

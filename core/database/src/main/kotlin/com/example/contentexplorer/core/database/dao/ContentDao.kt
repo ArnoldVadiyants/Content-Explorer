@@ -11,6 +11,9 @@ import com.example.contentexplorer.core.database.entity.ResponseEntity
 import com.example.contentexplorer.core.database.entity.ResponseSetEntity
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Data Access Object for local database operations.
+ */
 @Dao
 interface ContentDao {
     @Query("SELECT * FROM pages ORDER BY id ASC")
@@ -52,6 +55,9 @@ interface ContentDao {
     @Query("DELETE FROM pages")
     suspend fun deleteAllPages()
 
+    /**
+     * Atomically replaces all database records in a single transaction.
+     */
     @Transaction
     suspend fun replaceAll(
         pages: List<PageEntity>,
@@ -59,6 +65,7 @@ interface ContentDao {
         responseSets: List<ResponseSetEntity>,
         responses: List<ResponseEntity>,
     ) {
+        // Clear old database entries before inserting new data
         deleteAllResponses()
         deleteAllResponseSets()
         deleteAllItems()
