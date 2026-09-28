@@ -1,10 +1,10 @@
 package com.example.contentexplorer
 
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -19,19 +19,18 @@ class ImageNavigationTest {
 
     @Test
     fun whenImageIsClicked_opensImageDetailScreen() {
-        composeTestRule
-            .onNodeWithText("Main Page")
-            .assertIsDisplayed()
 
-        composeTestRule
-            .onNodeWithContentDescription("Welcome Image")
-            .assertIsDisplayed()
-            .performClick()
+        val homeContent = composeTestRule.onNodeWithTag("home_content")
+        composeTestRule.waitUntil { homeContent.isDisplayed() }
 
-        composeTestRule
-            .onNodeWithTag(
-                "image_detail_contet"
-            )
-            .assertIsDisplayed()
+        val imageQuestion = composeTestRule
+            .onAllNodesWithTag("image_question_image")
+            .onFirst()
+        composeTestRule.waitUntil { imageQuestion.isDisplayed() }
+
+        imageQuestion.performClick()
+
+        val detailScreen = composeTestRule.onNodeWithTag("image_detail_content")
+        composeTestRule.waitUntil { detailScreen.isDisplayed() }
     }
 }

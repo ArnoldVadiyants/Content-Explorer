@@ -23,7 +23,7 @@ fun PageContent(
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
             text = page.title,
-            style = MaterialTheme.typography.headlineSmall,
+            style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground,
         )

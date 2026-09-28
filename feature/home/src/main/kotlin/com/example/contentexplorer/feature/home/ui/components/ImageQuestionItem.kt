@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.contentexplorer.core.designsystem.theme.Spacing
@@ -37,6 +38,7 @@ fun ImageQuestionItem(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
+                .testTag("image_question_image")
                 .aspectRatio(16f / 9f)
                 .clip(RoundedCornerShape(12.dp))
                 .clickable { onAction(HomeAction.ImageClicked(question.id)) },
