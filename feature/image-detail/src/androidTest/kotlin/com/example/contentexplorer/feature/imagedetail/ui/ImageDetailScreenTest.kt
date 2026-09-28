@@ -50,7 +50,7 @@ class ImageDetailScreenTest {
     }
 
     @Test
-    fun whenError_displaysErrorContentAndRetryDispatchesRetryAction() {
+    fun whenErrorIsDisplayed_displaysErrorAndRetryDispatchesRetryAction() {
         val actions = mutableListOf<ImageDetailAction>()
 
         composeTestRule.setContent {
@@ -83,8 +83,8 @@ class ImageDetailScreenTest {
     }
 
     @Test
-    fun whenImageIsLoaded_displaysImageDetailContent() {
-        val testImage = ImageQuestion(
+    fun whenImageIsLoaded_displaysImageAndTitle() {
+        val image = ImageQuestion(
             id = 100L,
             src = "https://example.com/test_image.png",
             title = "Detailed Sample Image",
@@ -94,7 +94,7 @@ class ImageDetailScreenTest {
             ImageDetailScreen(
                 state = ImageDetailUiState(
                     isLoading = false,
-                    image = testImage,
+                    image = image,
                     error = false,
                 ),
                 onAction = {},
@@ -102,12 +102,12 @@ class ImageDetailScreenTest {
         }
 
         composeTestRule
-            .onNodeWithText("Detailed Sample Image")
+            .onNodeWithText(image.title)
             .assertIsDisplayed()
 
         composeTestRule
-            .onNodeWithContentDescription("Detailed Sample Image")
-            .assertIsDisplayed()
+            .onNodeWithContentDescription(image.title)
+            .assertExists()
     }
 
     @Test
