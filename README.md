@@ -4,6 +4,11 @@ A native Android application built as part of the Android Code Challenge.
 
 The app fetches hierarchical content from the provided API, displays it in a structured way, supports image details and selectable choice questions, and keeps previously fetched content available offline.
 
+## Demo
+
+https://github.com/user-attachments/assets/fc2f4166-77d2-4c63-807c-f7cede893b1f
+
+
 ## Features
 
 - Fetches hierarchical content from the provided API.
