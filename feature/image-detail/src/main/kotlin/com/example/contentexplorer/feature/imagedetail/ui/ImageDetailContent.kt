@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import coil3.compose.AsyncImage
 import com.example.contentexplorer.core.designsystem.theme.Spacing
@@ -19,7 +20,9 @@ fun ImageDetailContent(
     image: ImageQuestion,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier = modifier.fillMaxSize()) {
+    LazyColumn(modifier = modifier
+        .fillMaxSize()
+        .testTag("image_detail_contet")) {
         item(key = "image") {
             AsyncImage(
                 model = image.src,
