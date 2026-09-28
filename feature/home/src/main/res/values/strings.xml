@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_title">Content Explorer</string>
+    <string name="content_refresh">Refresh</string>
+    <string name="content_retry">Retry</string>
+    <string name="home_empty_state">No content available</string>
+    <string name="home_error_network">Unable to load content. Check your connection and try again.</string>
+    <string name="home_error_unknown">Something went wrong. Please try again.</string>
+</resources>
