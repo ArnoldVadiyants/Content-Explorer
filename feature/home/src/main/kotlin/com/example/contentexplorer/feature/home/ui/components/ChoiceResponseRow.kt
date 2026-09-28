@@ -1,12 +1,13 @@
 package com.example.contentexplorer.feature.home.ui.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
@@ -29,14 +30,24 @@ fun ChoiceResponseRow(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val selectionModifier = if (multipleSelection) {
+        Modifier.toggleable(
+            value = selected,
+            role = Role.Checkbox,
+        ) { onClick() }
+    } else {
+        Modifier.selectable(
+            selected = selected,
+            role = Role.RadioButton,
+            onClick = onClick,
+        )
+    }
+
     Row(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = 48.dp)
-            .clickable(
-                role = if (multipleSelection) Role.Checkbox else Role.RadioButton,
-                onClick = onClick,
-            )
+            .then(selectionModifier)
             .padding(vertical = Spacing.xs),
         verticalAlignment = Alignment.CenterVertically,
     ) {
